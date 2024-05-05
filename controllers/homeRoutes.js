@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { User, Post, Comment } = require('../models');
+const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
     try {
@@ -21,6 +22,27 @@ router.get('/', async (req, res) => {
         // Pass serialized data into Handlebars.js template
         res.render('homepage', { posts, logged_in: req.session.logged_in });
     } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+router.get('/dashboard', withAuth, async (req, res) => {
+    try {
+        const userData = await User.findByPk(req.session.user_id, {
+            include: [
+                {
+                    model: Post
+                },
+                {
+                    model: Comment
+                }
+            ]
+        })
+
+        const user = userData.get({ plain: true });
+        res.render('dashboard', { user, logged_in: req.session.logged_in })
+    } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -55,13 +77,13 @@ router.get('/post/:id', async (req, res) => {
     }
 });
 
-router.get('/new_post', (req, res) => { 
-    if (!req.session.logged_in) {
-        res.redirect('/login');
-        return;
+router.get('/new_post', withAuth, (req, res) => { 
+    try {
+        res.render('new_post');
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
     }
-
-    res.render('new_post');
 });
 
 router.get('/register', (req, res) => {
