@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
         const posts = postData.map((post) => post.get({ plain: true }));
 
         // Pass serialized data into Handlebars.js template
-        res.render('homepage', { posts });
+        res.render('homepage', { posts, logged_in: req.session.logged_in });
     } catch (err) {
         res.status(500).json(err);
     }
@@ -30,7 +30,7 @@ router.get('/post/:id', async (req, res) => {
     
         const post = postData.get({ plain: true });
         // Send over the 'loggedIn' session variable to the 'homepage' template
-        res.render('post');
+        res.render('post', { post, logged_in: req.session.logged_in });
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
@@ -39,7 +39,7 @@ router.get('/post/:id', async (req, res) => {
 
 router.get('/register', (req, res) => {
     // If the user is already logged in, redirect to the homepage
-    if (req.session.loggedIn) {
+    if (req.session.logged_in) {
         res.redirect('/');
         return;
     }
@@ -49,7 +49,7 @@ router.get('/register', (req, res) => {
 
 router.get('/login', (req, res) => {
     // If the user is already logged in, redirect to the homepage
-    if (req.session.loggedIn) {
+    if (req.session.logged_in) {
         res.redirect('/');
         return;
     }
