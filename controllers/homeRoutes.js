@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const sequelize = require('../config/connection');
 const { User, Post, Comment } = require('../models');
 
 router.get('/', async (req, res) => {
@@ -29,20 +30,25 @@ router.get('/post/:id', async (req, res) => {
         const postData = await Post.findByPk(req.params.id, {
             include: [
                 {
+                    model: User,
+                    attributes: { exclude: ['password'] }
+                },
+                {
                     model: Comment,
-                    attributes: [
-                        'id',
-                        'comment',
-                        'date_created',
-                        'user_id'
-                    ]
+                    include: [
+                        {
+                            model: User,
+                            attributes: { exclude: ['password'] }
+                        }
+                    ],
                 }
-            ]
+            ],
+            order: [[sequelize.col('comments.date_created'), 'ASC']]
         });
     
         const post = postData.get({ plain: true });
         // Send over the 'loggedIn' session variable to the 'homepage' template
-        res.render('post', { post, logged_in: req.session.logged_in });
+        res.render('post', { post, logged_in: req.session.logged_in, post_id: req.params.id });
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
