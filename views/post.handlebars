@@ -1,0 +1,31 @@
+<section class="container">
+  <h3 class="gallery-name">{{post.title}}</h3>
+  <p>{{post.content}}</p>
+  <!-- If the user is logged in, render the gallery content -->
+  <section class="flex-row justify-center">
+    {{#each post.comments as |comment|}}
+    {{> comment_details}}
+    {{/each}}
+  </section>
+  {{#if logged_in}}
+  <section>
+    <div class="row justify-space-between-md">
+  <div class="login-card">
+    <h2 class="page-title">New Comment</h2>
+    <form class="form new-comment-form">
+      <div class="form-group">
+        <label for="comment">Comment:</label>
+        <input class="form-input" type="text" id="title" />
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit">comment</button>
+      </div>
+    </form>
+  </div>
+</div>
+  </section>
+</section>
+<!-- Otherwise, provide a link to login -->
+{{else}}
+<a href="/login">You must login first to comment</a>
+{{/if}}

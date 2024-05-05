@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Post } = require('../models');
+const { User, Post, Comment } = require('../models');
 
 router.get('/', async (req, res) => {
     try {
@@ -26,7 +26,19 @@ router.get('/', async (req, res) => {
 
 router.get('/post/:id', async (req, res) => {
     try {
-        const postData = await Post.findByPk(req.params.id);
+        const postData = await Post.findByPk(req.params.id, {
+            include: [
+                {
+                    model: Comment,
+                    attributes: [
+                        'id',
+                        'comment',
+                        'date_created',
+                        'user_id'
+                    ]
+                }
+            ]
+        });
     
         const post = postData.get({ plain: true });
         // Send over the 'loggedIn' session variable to the 'homepage' template
@@ -35,6 +47,15 @@ router.get('/post/:id', async (req, res) => {
         console.log(err);
         res.status(500).json(err);
     }
+});
+
+router.get('/new_post', (req, res) => { 
+    if (!req.session.logged_in) {
+        res.redirect('/login');
+        return;
+    }
+
+    res.render('new_post');
 });
 
 router.get('/register', (req, res) => {
