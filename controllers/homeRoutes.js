@@ -47,6 +47,42 @@ router.get('/dashboard', withAuth, async (req, res) => {
     }
 });
 
+router.get('/dashboard_posts', withAuth, async (req, res) => {
+    try {
+        const userData = await User.findByPk(req.session.user_id, {
+            include: [
+                {
+                    model: Post
+                }
+            ]
+        })
+
+        const user = userData.get({ plain: true });
+        res.render('dashboard_posts', { user, logged_in: req.session.logged_in })
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
+router.get('/dashboard_comments', withAuth, async (req, res) => {
+    try {
+        const userData = await User.findByPk(req.session.user_id, {
+            include: [
+                {
+                    model: Comment
+                }
+            ]
+        })
+
+        const user = userData.get({ plain: true });
+        res.render('dashboard_comments', { user, logged_in: req.session.logged_in })
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
 router.get('/post/:id', async (req, res) => {
     try {
         const postData = await Post.findByPk(req.params.id, {
@@ -79,12 +115,34 @@ router.get('/post/:id', async (req, res) => {
 
 router.get('/new_post', withAuth, (req, res) => { 
     try {
-        res.render('new_post');
+        res.render('new_post', { logged_in: req.session.logged_in });
     } catch (err) {
         console.log(err);
         res.status(500).json(err);
     }
 });
+
+router.get('/edit_post/:id', withAuth, async (req, res) => {
+    try {
+        const postData = await Post.findByPk(req.params.id);
+        const post = postData.get({ plain: true });
+        res.render('edit_post', { post, logged_in: req.session.logged_in });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+})
+
+router.get('/edit_comment/:id', withAuth, async (req, res) => {
+    try {
+        const commentData = await Comment.findByPk(req.params.id);
+        const comment = commentData.get({ plain: true });
+        res.render('edit_comment', { comment, logged_in: req.session.logged_in });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+})
 
 router.get('/register', (req, res) => {
     // If the user is already logged in, redirect to the homepage
