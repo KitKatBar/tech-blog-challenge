@@ -1,10 +1,7 @@
 <section class="container">
   <!-- Was trying to find a way to get the URL with the post id so it can link to the comment -->
-  <p class="post-id">
-    {{#if hide}}
-    {{post_id}}
-    {{/if}}
-  </p>
+  <p class="post-id">{{post_id}}</p>
+  <!-- Attempting to use #if causes issues in getting the post id because the element is hidden -->
   <section class="card">
     <header>{{post.title}}</header>
     <p>{{post.content}}</p>
@@ -25,7 +22,7 @@
         <form class="form new-comment-form">
           <div class="form-group">
             <label for="comment">Comment:</label>
-            <input class="form-input" type="text" id="comment" />
+            <textarea class="form-input" type="text" id="comment"></textarea>
           </div>
           <div class="form-group">
             <button class="btn btn-primary" type="submit">Comment</button>
