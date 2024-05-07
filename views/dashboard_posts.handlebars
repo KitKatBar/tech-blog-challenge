@@ -1,12 +1,12 @@
 <section class="container">
-    <header class="dashboard">Welcome to your Dashboard, {{user.username}}</header>
+  <header class="dashboard">Welcome to your Dashboard, {{user.username}}</header>
     
-    <h2>All Your Posts:</h2>
-<section class="flex-row justify-center">
+  <h2>All Your Posts:</h2>
+  <section class="flex-row justify-center">
     {{#each user.posts as |post|}}
     {{> dashboard_post_details}}
     {{/each}}
-</section>
+  </section>
   <section class="flex-row justify-center">
     <a href="/dashboard_comments"><h2>View All Your Comments</h2></a>
   </section>

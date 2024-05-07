@@ -1,17 +1,22 @@
 <section class="container">
-  <p class="post-id">{{#if hide}}{{post_id}}{{/if}}</p>
+  <!-- Was trying to find a way to get the URL with the post id so it can link to the comment -->
+  <p class="post-id">
+    {{#if hide}}
+    {{post_id}}
+    {{/if}}
+  </p>
   <section class="card">
-  <header>{{post.title}}</header>
-  <p>{{post.content}}</p>
-  <h3>Posted on {{post.date_created}} by {{post.user.username}}</h3>
+    <header>{{post.title}}</header>
+    <p>{{post.content}}</p>
+    <h3>Posted on {{post.date_created}} by {{post.user.username}}</h3>
   </section>
-  <!-- If the user is logged in, render the gallery content -->
   <h3>Comment Section: </h3>
   <section class="flex-row justify-center">
     {{#each post.comments as |comment|}}
     {{> comment_details}}
     {{/each}}
   </section>
+  <!-- If the user is logged in, render the comment box -->
   {{#if logged_in}}
   <section>
     <div class="row justify-center">
@@ -30,6 +35,7 @@
     </div>
   </section>
 </section>
+
 <script src="../js/comment.js"></script>
 <!-- Otherwise, provide a link to login -->
 {{else}}

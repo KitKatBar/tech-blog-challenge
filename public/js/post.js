@@ -1,45 +1,45 @@
 const newPostFormHandler = async (event) => {
-    event.preventDefault();
+  event.preventDefault();
   
-    const title = document.querySelector('#title').value.trim();
-    const content = document.querySelector('#content').value.trim();
+  const title = document.querySelector('#title').value.trim();
+  const content = document.querySelector('#content').value.trim();
   
-    if (title && content) {
-      const response = await fetch('/api/posts', {
-        method: 'POST',
-        body: JSON.stringify({ title, content }),
-        headers: { 'Content-Type': 'application/json' },
-      });
+  if (title && content) {
+    const response = await fetch('/api/posts', {
+      method: 'POST',
+      body: JSON.stringify({ title, content }),
+      headers: { 'Content-Type': 'application/json' },
+    });
   
-      if (response.ok) {
-        document.location.replace('/');
-      } else {
-        alert('Failed to post.');
-      }
+    if (response.ok) {
+      document.location.replace('/');
+    } else {
+      alert('Failed to post.');
     }
-  };
+  }
+};
 
 const editPostHandler = async (event) => {
   event.preventDefault();
 
   const title = document.querySelector('#title').value.trim();
-    const content = document.querySelector('#content').value.trim();
-    const url = window.location.pathname;
-    const postId = url.substring(url.lastIndexOf('/') + 1);
+  const content = document.querySelector('#content').value.trim();
+  const url = window.location.pathname;
+  const postId = url.substring(url.lastIndexOf('/') + 1);
   
-    if (title && content) {
-      const response = await fetch(`/api/posts/${postId}`, {
-        method: 'PUT',
-        body: JSON.stringify({ title, content }),
-        headers: { 'Content-Type': 'application/json' },
-      });
+  if (title && content) {
+    const response = await fetch(`/api/posts/${postId}`, {
+      method: 'PUT',
+      body: JSON.stringify({ title, content }),
+      headers: { 'Content-Type': 'application/json' },
+    });
   
-      if (response.ok) {
-        document.location.replace('/');
-      } else {
-        alert('Failed to edit post.');
-      }
+    if (response.ok) {
+      document.location.replace('/');
+    } else {
+      alert('Failed to edit post.');
     }
+  }
 }
 
 const deletePostHandler = async (event) => {
