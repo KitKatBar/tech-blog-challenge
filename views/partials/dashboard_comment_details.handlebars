@@ -1,9 +1,9 @@
 <section class="card">
   <a href="/post/{{post_id}}">
     <p>{{comment}}</p>
-    <p>Posted on {{date_created}}</p>
+    <h2>Posted on {{date_created}}</h2>
   </a>
 
-  <a href="/edit_comment/{{id}}"><button class="btn btn-primary" data-id="{{id}}">edit</button></a>
-<button class="btn btn-primary delete-comment" data-id="{{id}}">delete</button>
+  <a href="/edit_comment/{{id}}"><button class="btn btn-primary" data-id="{{id}}">Edit</button></a>
+<button class="btn btn-danger delete-comment" data-id="{{id}}">Delete</button>
 </section>

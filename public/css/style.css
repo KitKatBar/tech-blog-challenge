@@ -31,8 +31,23 @@ a:visited {
 header {
   padding: 40px;
   text-align: center;
-  background: var(--primary);
-  color: var(--light);
+  background-color: #01010c;
+  color: #ffffff;
+  display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+header h1 {
+  color: beige;
+  background-image: linear-gradient(135deg, #c00b04 0%, #f35a01 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0px;
+  font-size: 30px;
 }
 
 main {
@@ -51,7 +66,7 @@ aside {
 
 nav {
   display: flex;
-  background-color: var(--secondary);
+  background-color: lightskyblue;
 }
 
 nav a {
@@ -62,13 +77,13 @@ nav a {
 }
 
 nav a:hover {
-  color: var(--secondary);
-  background-color: var(--dark);
+  color: red;
+  background-color: purple;
 }
 
 .gallery {
   flex: 4;
-  background-color: #fff;
+  background-color: rgb(56, 56, 56);
   padding: 50px;
   display: flex;
   flex-flow: row wrap;
@@ -107,33 +122,56 @@ img {
 
 /* CARDS */
 .card {
-  margin: 20px;
-  flex: 0 1 300px;
+  margin: 10px;
   border: 7px double var(--dark);
   border-radius: 10px;
   background-color: var(--light);
   color: var(--dark);
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 200px;
+  padding: 5px;
+  overflow-y: scroll;
+  flex: 1 1 50%;
+    position: relative;
+}
+
+.card h2 {
+  font-size: 23px;
+  text-align: left;
+  border-bottom: 2px solid;
+}
+
+.card p {
+  font-size: 15px;
+  margin-top: 10px;
+  height: 100px;
+  text-align: left;
+}
+
+.card h3 {
+  font-size: 17px;
 }
 
 .login-card {
   margin: 0 0 20px 0;
   flex: 0 0 50%;
-  max-width: 50%;
+  width: 75vw;
   padding: 5px;
   border: 3px solid var(--dark);
   border-radius: var(--border-radius);
   border-style: double;
   border-width: thick;
-  background-color: #577a7c;
-  color: var(--light);
+  background-color: lightskyblue;
+  color: rgb(110, 0, 0);
 }
 
 .card header {
-  color: var(--light);
+  color: darkblue;
   font-weight: bold;
   text-transform: uppercase;
   margin: 0;
-  background-color: var(--tertiary);
+  background-color: lightskyblue;
   padding: 0.625rem;
   border-radius: calc(0.18rem - 1px) calc(0.18rem - 1px) 0 0;
 }
@@ -152,7 +190,8 @@ img {
   padding-top: 30px;
   padding-bottom: 30px;
   padding-right: 100px;
-  padding-left: 100px;
+  padding-left: 350px;
+  text-align: center;
 }
 
 /* LAYOUT */
@@ -161,4 +200,27 @@ img {
   flex-flow: column wrap;
   align-content: flex-start;
   align-items: center;
+}
+
+.login-signup {
+  font-size: 1rem;
+  color: purple;
+}
+
+#moustache {
+  height: 75px;
+    width: 75px;
+    background-image: url("https://styles.redditmedia.com/t5_2qmmq/styles/communityIcon_uurvbyly5kz41.png");
+    background-size: contain;
+    transition: transform .5s ease;
+}
+
+.dashboard {
+  margin: 20px;
+}
+
+.dashboard-content {
+  font-size: 1.4rem;
+  text-align: center;
+  font-weight: bold;
 }

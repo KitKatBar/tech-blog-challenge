@@ -12,7 +12,7 @@ const newCommentFormHandler = async (event) => {
       });
   
       if (response.ok) {
-        document.location.replace('/');
+        document.location.reload();
       } else {
         alert('Failed to post.');
       }
@@ -53,7 +53,7 @@ const deleteCommentHandler = async (event) => {
     });
   
     if (response.ok) {
-      document.location.replace('/');
+      document.location.reload();
     } else {
       alert('Failed to delete comment.');
     }
