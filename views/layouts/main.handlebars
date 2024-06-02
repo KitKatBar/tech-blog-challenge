@@ -18,10 +18,10 @@
     <a href="/">Home</a>
     <!-- If the user is logged in, show a logout button -->
     {{#if logged_in}}
-    <a href="/dashboard">Dashboard</a>
     <button id="logout" class="btn-no-style">Logout</button>
     {{else}}
     <!-- Otherwise, show a link to login -->
+    <a href="/dashboard">Dashboard</a>
     <a href="/login">Login</a>
     <a href="/register">Register</a>
     {{/if}}
